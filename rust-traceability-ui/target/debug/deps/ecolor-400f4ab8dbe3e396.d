@@ -1,0 +1,10 @@
+/Users/sudharsans/Documents/Orion-PharmaTics/rust-traceability-ui/target/debug/deps/ecolor-400f4ab8dbe3e396.d: /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/lib.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/color32.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva_gamma.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/rgba.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hex_color_runtime.rs
+
+/Users/sudharsans/Documents/Orion-PharmaTics/rust-traceability-ui/target/debug/deps/libecolor-400f4ab8dbe3e396.rmeta: /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/lib.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/color32.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva_gamma.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/rgba.rs /Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hex_color_runtime.rs
+
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/lib.rs:
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/color32.rs:
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva_gamma.rs:
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hsva.rs:
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/rgba.rs:
+/Users/sudharsans/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ecolor-0.27.2/src/hex_color_runtime.rs:

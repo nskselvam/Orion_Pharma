@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/sudharsans/Documents/Orion-PharmaTics/blockchain/contracts/LogStorage.sol": {
+      "lastModificationDate": 1776185636396,
+      "contentHash": "f91b63947810c3cdbbf653c519fc5e1c",
+      "sourceName": "contracts/LogStorage.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "LogStorage"
+      ]
+    }
+  }
+}
