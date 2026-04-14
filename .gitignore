@@ -4,12 +4,8 @@
 .idea/
 
 # Environment files
-.env
-.env.*
-!.env.example
-backend/.env
-frontend/.env
-blockchain/.env
+**/.env
+**/.env.*
 
 # Dependencies
 node_modules/
