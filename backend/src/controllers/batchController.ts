@@ -4,7 +4,8 @@ import {
 } from '../types/pharma.types';
 import { Request, Response } from 'express';
 import { storeHashLocal, verifyHashOnBlockchain } from '../utils/blockchainService';
-import { startSimulation, stopSimulation, STAGE_COORDINATES } from '../utils/simulationService';
+import { startSimulation, stopSimulation } from '../utils/simulationService';
+import { generateRouteStages } from '../utils/routeGenerator';
 
 const FRONTEND_BASE_URL = process.env.FRONTEND_PUBLIC_URL || 'http://localhost:5173';
 const API_BASE_URL = process.env.API_PUBLIC_URL || `http://localhost:${process.env.PORT || 5000}`;
@@ -60,7 +61,6 @@ export const createBatch = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    const manufacturerInfo = STAGE_COORDINATES.manufacturer;
     const tempValue = temperature || 22;
 
     // Create batch
@@ -89,20 +89,32 @@ export const createBatch = async (req: Request, res: Response): Promise<void> =>
 
     const batch = batchResult.rows[0];
 
-    // Create initial stage
-    await client.query(
-      `INSERT INTO batch_stages (
-        batch_id, name, location, temperature, coordinates_lat, coordinates_lng
-      ) VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        batch.batch_id,
-        manufacturerInfo.name,
-        'manufacturer',
-        tempValue,
-        manufacturerInfo.lat,
-        manufacturerInfo.lng
-      ]
-    );
+    // Generate realistic route stages from origin to destination
+    const routeStages = generateRouteStages(origin, destination, tempValue);
+
+    // Create stages based on generated route
+    for (let i = 0; i < routeStages.length; i++) {
+      const stage = routeStages[i];
+      
+      // Calculate timestamps - earlier stages have earlier timestamps
+      const hoursAgo = (routeStages.length - 1 - i) * 6; // 6 hours between stages
+      const timestamp = new Date(Date.now() - hoursAgo * 60 * 60 * 1000);
+      
+      await client.query(
+        `INSERT INTO batch_stages (
+          batch_id, name, location, temperature, coordinates_lat, coordinates_lng, timestamp
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          batch.batch_id,
+          stage.name,
+          stage.location,
+          stage.temperature || tempValue,
+          stage.lat,
+          stage.lng,
+          timestamp
+        ]
+      );
+    }
 
     // Store initial critical event hash on blockchain
     const initialEvent = {
