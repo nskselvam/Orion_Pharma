@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { query } from '../config/database';
+import { storeHashLocal } from '../utils/blockchainService';
 
 /**
  * Alert Controller
@@ -174,10 +175,47 @@ export const resolveAlert = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
+    const resolvedAlert = result.rows[0];
+
+    const criticalEvent = {
+      eventType: 'alert_resolved',
+      batchId: resolvedAlert.batch_id,
+      alertId: resolvedAlert.id,
+      alertType: resolvedAlert.type,
+      severity: resolvedAlert.severity,
+      message: resolvedAlert.message,
+      resolvedAt: resolvedAlert.resolved_at,
+      timestamp: new Date()
+    };
+    const eventHash = await storeHashLocal(criticalEvent);
+
+    await query(
+      `INSERT INTO logs (batch_id, type, value, previous_value, blockchain_hash)
+       VALUES ($1, 'alert', $2::jsonb, $3::jsonb, $4)`,
+      [
+        resolvedAlert.batch_id,
+        JSON.stringify({
+          event: 'alert_resolved',
+          alertId: resolvedAlert.id,
+          type: resolvedAlert.type,
+          severity: resolvedAlert.severity,
+          message: resolvedAlert.message,
+          onChain: eventHash.onChain,
+          transactionHash: eventHash.transactionHash || null,
+          blockNumber: eventHash.blockNumber || null
+        }),
+        JSON.stringify({ resolved: false }),
+        eventHash.hash
+      ]
+    );
+
     res.json({
       success: true,
       message: 'Alert resolved successfully',
-      data: result.rows[0]
+      data: {
+        ...resolvedAlert,
+        blockchainEventHash: eventHash.hash
+      }
     });
   } catch (error: any) {
     console.error('Resolve alert error:', error);
@@ -211,9 +249,45 @@ export const createAlert = async (req: Request, res: Response): Promise<void> =>
       [batchId.toUpperCase(), type, severity, message, details || null]
     );
 
+    const createdAlert = result.rows[0];
+    const criticalEvent = {
+      eventType: 'alert_created',
+      batchId: createdAlert.batch_id,
+      alertId: createdAlert.id,
+      alertType: createdAlert.type,
+      severity: createdAlert.severity,
+      message: createdAlert.message,
+      details: createdAlert.details,
+      createdAt: createdAlert.created_at,
+      timestamp: new Date()
+    };
+    const eventHash = await storeHashLocal(criticalEvent);
+
+    await query(
+      `INSERT INTO logs (batch_id, type, value, blockchain_hash)
+       VALUES ($1, 'alert', $2::jsonb, $3)`,
+      [
+        createdAlert.batch_id,
+        JSON.stringify({
+          event: 'alert_created',
+          alertId: createdAlert.id,
+          type: createdAlert.type,
+          severity: createdAlert.severity,
+          message: createdAlert.message,
+          onChain: eventHash.onChain,
+          transactionHash: eventHash.transactionHash || null,
+          blockNumber: eventHash.blockNumber || null
+        }),
+        eventHash.hash
+      ]
+    );
+
     res.status(201).json({
       success: true,
-      data: result.rows[0]
+      data: {
+        ...createdAlert,
+        blockchainEventHash: eventHash.hash
+      }
     });
   } catch (error: any) {
     console.error('Create alert error:', error);

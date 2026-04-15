@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { verifyBatch } from '../controllers/batchController';
+import { getBatchVerificationQr, verifyBatch } from '../controllers/batchController';
 
 const router = Router();
 
@@ -7,6 +7,9 @@ const router = Router();
  * Verification Routes
  * Base path: /api/pharma/verify
  */
+
+// Verify batch by ID (public endpoint)
+router.get('/:batchId/qr', getBatchVerificationQr);
 
 // Verify batch by ID (public endpoint)
 router.get('/:batchId', verifyBatch);

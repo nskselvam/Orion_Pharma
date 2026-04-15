@@ -270,6 +270,40 @@ const Verify: React.FC = () => {
               </div>
             </div>
 
+            {/* QR Verification */}
+            {batch?.verificationQr && (
+              <div className="card" style={{ background: 'rgba(52, 199, 89, 0.06)', border: '1px solid rgba(52, 199, 89, 0.25)' }}>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div>
+                    <img
+                      src={batch.verificationQr.qrImageUrl}
+                      alt={`QR verification for batch ${batch.batchId}`}
+                      width={180}
+                      height={180}
+                      style={{ borderRadius: '12px', border: '1px solid rgba(0,0,0,0.12)', background: '#fff' }}
+                    />
+                  </div>
+                  <div style={{ flex: 1, minWidth: '280px' }}>
+                    <p style={{ fontSize: '14px', fontWeight: 600, color: 'var(--success)' }}>QR Verification Ready</p>
+                    <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '6px' }}>
+                      Scan the QR code to open tamper-proof verification for hospitals.
+                    </p>
+                    {/* <a
+                      href={batch.verificationQr.verificationUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ display: 'inline-block', marginTop: '10px', fontSize: '12px', color: 'var(--accent)', textDecoration: 'underline' }}
+                    >
+                      Open verification link
+                    </a>
+                    <p style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '8px', wordBreak: 'break-all', fontFamily: 'monospace' }}>
+                      {batch.verificationQr.apiVerifyUrl}
+                    </p> */}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Journey Timeline */}
             {transformedStages && transformedStages.length > 0 && (
               <div>

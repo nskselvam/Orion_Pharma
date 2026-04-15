@@ -7,8 +7,9 @@ Orion-PharmaTics is a pharmaceutical supply-chain platform for cold-chain monito
 1. Tracks medicine batches from manufacturer to pharmacy.
 2. Monitors temperature against allowed ranges.
 3. Flags compromised shipments and active alerts.
-4. Provides blockchain proof/status for tamper-evident verification.
-5. Exposes a demo-ready dashboard and APIs for judge evaluation.
+4. Anchors critical events as tamper-proof hashes for audit integrity.
+5. Provides QR-code based verification for hospitals, patients, and pharmacies.
+6. Exposes a demo-ready dashboard and APIs for judge evaluation.
 
 ## Tech stack
 
@@ -85,6 +86,11 @@ This command automatically:
 8. /api/pharma/risk
 9. /api/pharma/secure-os
 10. /api/blockchain
+
+Verification and QR endpoints:
+
+1. /api/pharma/verify/:batchId
+2. /api/pharma/verify/:batchId/qr
 
 ## Environment configuration
 
